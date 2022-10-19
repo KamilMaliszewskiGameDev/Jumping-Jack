@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private const float JUMPING_FORCE = 5f;
-    [SerializeField] private const float MOVEMENT_SPEED = 3f;
+    [SerializeField] private const float MOVEMENT_SPEED = 5f;
     [SerializeField] LayerMask ground;
 
     private Rigidbody playerRigidbody;
