@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private const int JUMPING_FORCE = 5;
-    private const int MOVEMENT_SPEED = 3;
+    [SerializeField] private const float JUMPING_FORCE = 5f;
+    [SerializeField] private const float MOVEMENT_SPEED = 3f;
 
     private Rigidbody playerRigidbody;
     // Start is called before the first frame update
@@ -18,27 +18,19 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Walk();
-        if(Input.GetKeyDown(KeyCode.Space)){
-            Jump();
-        }
+        Jump();
     }
 
     public void Jump(){
-        playerRigidbody.velocity = Vector3.up * JUMPING_FORCE;
+        if(Input.GetButtonDown("Jump")){
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, JUMPING_FORCE, playerRigidbody.velocity.z);
+        }
     }
 
     public void Walk(){
-        if(Input.GetKey("up")){
-            playerRigidbody.velocity = new Vector3(0, 0, 2);
-        }
-        if(Input.GetKey("down")){
-            playerRigidbody.velocity = new Vector3(0, 0, -2);
-        }
-        if(Input.GetKey("left")){
-            playerRigidbody.velocity = new Vector3(-2, 0, 0);
-        }
-        if(Input.GetKey("right")){
-            playerRigidbody.velocity = new Vector3(2, 0, 0);
-        }
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        playerRigidbody.velocity = new Vector3(horizontalInput * MOVEMENT_SPEED, playerRigidbody.velocity.y, verticalInput * MOVEMENT_SPEED);
     }
 }
